@@ -1,6 +1,8 @@
 package comment
 
-import "github.com/jinzhu/gorm"
+import (
+	"github.com/jinzhu/gorm"
+)
 
 // Service - the struct for our comment service
 type Service struct {
@@ -34,10 +36,11 @@ func NewService(db *gorm.DB) *Service {
 //GetComment - retrieves comments by their ID
 func (s *Service) GetComment(ID uint) (Comment, error) {
 	var comment Comment
+
 	if result := s.DB.First(&comment, ID); result.Error != nil {
 		return Comment{}, result.Error
 	}
-	return Comment{}, nil
+	return comment, nil
 }
 
 //GetCommentBySlug - retrieves comments by slug (path - /article/name)
